@@ -33,6 +33,13 @@ public class Email {
         // 3. It contains at least one lowercase letter
         // 4. It contains at least one digit
         // 5. It contains at least one special character. Any character apart from alphabets and digits is a special character
+
+        // Adding Base Cases :
+        if(!oldPassword.equals(getPassword()))
+            return;
+        else if (newPassword.length() < 8 )
+            return;
+
         if(oldPassword.equals(getPassword()) && newPassword.length() >= 8) {
             boolean isUpperCase = false;
             boolean isLowerCase = false;

@@ -22,7 +22,8 @@ public class Workspace extends Gmail{
     public Workspace(String emailId) {
         // The inboxCapacity is equal to the maximum value an integer can store.
         super(emailId, Integer.MAX_VALUE);
-        setCalendar(new ArrayList<>());
+        // Included <Meeting> :
+        setCalendar(new ArrayList<Meeting>());
     }
 
     public void addMeeting(Meeting meeting){
@@ -38,15 +39,17 @@ public class Workspace extends Gmail{
         ArrayList<Meeting> meeting_schedule = new ArrayList<>(calendar);
         meeting_schedule.sort(new Comparator<>() {
             @Override
-            public int compare(Meeting o1, Meeting o2) {
-                if (o1.getEndTime().isBefore(o2.getEndTime()))
+            public int compare(Meeting meet_1, Meeting meet_2) {
+                if (meet_1.getEndTime().isBefore(meet_2.getEndTime()))
                     return -1;
-                else
-                    return 1;
+                return 1;
             }
         });
+
         int maxMeet = 1;
+
         LocalTime meetEnd = meeting_schedule.get(0).getEndTime();
+
         for(int i =1; i < meeting_schedule.size(); i++){
             if(meeting_schedule.get(i).getStartTime().isAfter(meetEnd)){
                 maxMeet++;
