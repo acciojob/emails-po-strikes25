@@ -77,7 +77,6 @@ public class Gmail extends Email {
         for(int i = 0 ; i < inbox_size - 1 ; i++) {
             this.inbox.offer(this.inbox.poll());
         }
-        assert this.inbox.poll() != null;
         // Resetting the order of the message by setting the last message towards the end :
         String message = this.inbox.peek().message;
         this.inbox.offer(this.inbox.poll());
