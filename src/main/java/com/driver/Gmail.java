@@ -37,20 +37,35 @@ public class Gmail extends Email {
         if(inbox_size == 0)
             return;
 
-        int rotation_count = 0;
-        // Included <= in the for loop :
-        for(int i = 0 ; i < inbox_size ; i++) {
-            if(this.inbox.peek().message.equals(message)) {
-                this.trash.offer(this.inbox.poll());
-                rotation_count = i;
-                break;
-            }
-            this.inbox.offer(this.inbox.poll());
+//        int rotation_count = 0;
+//        // Included <= in the for loop :
+//        for(int i = 0 ; i < inbox_size ; i++) {
+//            if(this.inbox.peek().message.equals(message)) {
+//                this.trash.offer(this.inbox.poll());
+//                rotation_count = i;
+//                break;
+//            }
+//            this.inbox.offer(this.inbox.poll());
+//        }
+//
+//        for(int i = rotation_count ; i < inbox_size ; i++){
+//            this.inbox.offer(this.inbox.poll());
+//        }
+
+        Queue <Mail> temporarySpace = new LinkedList<>();
+        while(!this.inbox.isEmpty() && !this.inbox.peek().message.equals(message)){
+            temporarySpace.offer(this.inbox.poll());
         }
 
-        for(int i = rotation_count ; i < inbox_size ; i++){
-            this.inbox.offer(this.inbox.poll());
+        if(this.inbox.size() > 0){
+            this.trash.offer(this.inbox.poll());
         }
+
+        while(!this.inbox.isEmpty()){
+            temporarySpace.offer(this.inbox.poll());
+        }
+
+        this.inbox = new LinkedList<>(temporarySpace);
     }
 
     public String findLatestMessage(){
