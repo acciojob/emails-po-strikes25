@@ -42,7 +42,8 @@ public class Gmail extends Email {
         for(int i = 0 ; i <= inbox_size ; i++) {
             if(this.inbox.peek().message.equals(message)) {
                 this.trash.offer(this.inbox.poll());
-                    rotation_count = i;
+                rotation_count = i;
+                break;
             }
             this.inbox.offer(this.inbox.poll());
         }
