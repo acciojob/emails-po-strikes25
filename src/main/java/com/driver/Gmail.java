@@ -39,7 +39,7 @@ public class Gmail extends Email {
 
         int rotation_count = 0;
         // Included <= in the for loop :
-        for(int i = 0 ; i <= inbox_size ; i++) {
+        for(int i = 0 ; i < inbox_size ; i++) {
             if(this.inbox.peek().message.equals(message)) {
                 this.trash.offer(this.inbox.poll());
                 rotation_count = i;
